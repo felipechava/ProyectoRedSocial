@@ -1,0 +1,59 @@
+﻿@using Dominio;
+@model Miembro
+
+<form action="/usuario/altapost" method="post">
+    <div class="mb-3">
+        <label for="autor" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="autor" value="@TempData["AutorNombre"] @TempData["AutorApellido"]" name="Nombre" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="esPrivado" class="form-label">Tipo de Post</label>
+        <select class="form-select" id="esPrivado" name="esPrivado">
+            <option value="false">Público</option>
+            <option value="true">Privado</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="texto" class="form-label">Texto</label>
+        <input type="text" class="form-control" id="texto" name="Texto">
+    </div>
+    <div class="mb-3">
+        <label for="titulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="titulo" name="Titulo">
+    </div>
+    <div class="mb-3">
+        <label for="contenido" class="form-label">Contenido</label>
+        <input type="text" class="form-control" id="contenido" name="Contenido">
+    </div>
+    <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen</label>
+        <input type="text" class="form-control" id="imagen" name="Imagen">
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Post</button> <br /><br />   
+</form>
+
+@if (TempData["mensaje"] != null)
+{
+    if (!(bool)TempData["mensaje"])
+    {
+        <div class="alert alert-success" role="alert">
+            Post realizado correctamente!
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["mensajeError"]
+        </div>
+
+    }
+}
+
+
+
+
+@* Post(string unTexto, Miembro unAutor, TipoPublicacion unTipo,string unTitulo, string unContenido, 
+string unaImagen, bool esPrivado, bool esHabilitado) *@
+
+
+

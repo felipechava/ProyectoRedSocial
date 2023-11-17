@@ -1,0 +1,42 @@
+﻿@using Dominio;
+@model List<Post>
+
+<h2>Listado de Posts</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Contenido</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Post post in Model)
+        {
+            <tr>
+                <td>@post.Titulo</td>
+                <td>@post.Autor.Nombre</td>
+                <td>@post.Contenido</td>
+                <td>
+                    @if (post.esHabilitado == true)
+                    {
+                        <form method="post" action="@Url.Action("BanearPost", "UsuarioAdm")">
+                            <input type="hidden" name="Id" value="@post.Id" />
+                            <button type="submit" onclick="return confirm('¿Está seguro de que desea banear al post @post.Id?')">Banear</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" action="@Url.Action("BanearPost", "UsuarioAdm")">
+                            <input type="hidden" name="Id" value="@post.Id" />
+                            <button type="submit" onclick="return confirm('¿Está seguro de que desea volver a habilitar al post @post.Id?')">Habilitar</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

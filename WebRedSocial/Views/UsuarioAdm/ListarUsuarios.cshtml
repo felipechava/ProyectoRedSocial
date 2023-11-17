@@ -1,0 +1,45 @@
+﻿@using Dominio;
+@model List<Miembro>
+
+<h1>Lista de miembros en el sistema:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>E-Mail</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Miembro m in Model)
+        {
+            <tr>
+                <th>@m.Nombre</th>
+                <td>@m.Apellido</td>
+                <td>@Html.ActionLink(m.Email, "ObtenerUsuarioPorEmail", "Usuario", new {Email = m.Email})</td>
+                <td>
+                    @if (m.esBloqueado == false) //Si el miembro NO esta bloqueado
+                    {
+                        <form method="post" action="@Url.Action("BloquearMiembro", "UsuarioAdm")">
+                            <input type="hidden" name="Email" value="@m.Email" />
+                            <button type="submit" onclick="return confirm('¿Está seguro de que desea bloquear al usuario @m.Nombre @m.Apellido?')">Bloquear</button>
+                        </form>                      
+                    }
+                    else //Si el miembro está bloqueado
+                    {
+                        <form method="post" action="@Url.Action("DesbloquearMiembro", "UsuarioAdm")">
+                            <input type="hidden" name="Email" value="@m.Email" />
+                            <button type="submit" onclick="return confirm('¿Está seguro de que desea desbloquear al usuario @m.Nombre @m.Apellido?')">Desbloquear</button>
+                        </form>
+                    }
+                    | @Html.ActionLink("Más Datos", "MostrarDatos", new {}) 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

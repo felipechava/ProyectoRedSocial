@@ -1,0 +1,47 @@
+﻿@using Dominio;
+@model List<Post>
+
+<h1>Lista de posts en el sistema:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Fecha</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Valor Aceptación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Post p in Model)
+        {
+            <tr>
+                <th>@p.Titulo</th>
+                <td>@Html.ActionLink(p.Autor.Email, "ObtenerUsuarioPorEmail", "Usuario", new {Email = p.Autor.Email})</td>
+                <th>@p.Fecha.ToShortDateString()</th>
+                <td>@p.CalcularCantidadLikes()</td>
+                <td>@p.CalcularCantidadDislikes()</td>
+                <td>@p.CalcularVAPost()</td>
+                <td>
+                    <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
+                        <input type="hidden" name="Id" value="@p.Id" />
+                        <button type="submit" name="reaccion" value="like">LIKE</button>
+                    </form>
+                    <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
+                        <input type="hidden" name="Id" value="@p.Id" />
+                        <button type="submit" name="reaccion" value="dislike">DISLIKE</button>
+                    </form>
+                </td>                            
+                <td>
+                    <a asp-controller="Usuario" asp-action="VerComentariosPost" asp-route-id="@p.Id">Ver Comentarios</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

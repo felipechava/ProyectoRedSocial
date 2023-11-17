@@ -1,0 +1,47 @@
+﻿@using Dominio;
+@model Usuario
+
+@* INDEX LOGIN *@
+
+<form action="/login/login" method="post">
+    <div class="mb-3">
+        <label for="email" class="form-label">E-Mail</label>
+        <input type="text" class="form-control" id="email" name="Email">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="text" class="form-control" id="password" name="Password">
+    </div>
+    <div>
+        <ul>
+            <li>Aún no tienes cuenta? <a asp-area="" asp-controller="Login" asp-action="Registro">Registrarse</a></li>
+        </ul>
+    </div>
+    <button type="submit" class="btn btn-primary">Acceder</button><br /><br />
+ 
+</form>
+
+@if (TempData["mensaje"] != null)
+{
+    @*if ((bool)TempData["mensaje"] == true)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["mensajeError"]
+        </div>
+    }*@
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@* Set unitarios *@
+
+

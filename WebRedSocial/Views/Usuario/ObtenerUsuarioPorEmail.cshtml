@@ -1,0 +1,21 @@
+﻿@using Dominio;
+@model Miembro
+
+<div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="nombre" value=@Model.Nombre disabled>
+</div>
+<div class="mb-3">
+    <label for="apellido" class="form-label">Apellido</label>
+    <input type="text" class="form-control" id="apellido" value=@Model.Apellido disabled>
+</div>
+<div class="mb-3">
+    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+    <input type="text" class="form-control" id="fechaNacimiento" value=@Model.fechaNacimiento disabled>
+</div>
+<div class="mb-3">
+    <label for="email" class="form-label">E-mail</label>
+    <input type="text" class="form-control" id="email" value="@Model.Email" disabled>
+</div>
+
+

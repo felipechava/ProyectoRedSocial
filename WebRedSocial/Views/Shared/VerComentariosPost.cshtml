@@ -1,0 +1,54 @@
+﻿@using Dominio;
+
+@* EN SHARED *@
+
+<h2>Detalles del Post</h2>
+<div>
+    <strong>Texto: </strong> @(ViewData["PostTexto"]) <br />
+    <strong>Autor: </strong> @(ViewData["PostAutorNombre"]) @(ViewData["PostAutorApellido"]) <br />
+    <strong>Fecha: </strong> @(ViewData["PostFecha"]) <br /><br />
+
+    <h3>Comentarios</h3>
+    @foreach (var comentario in (List<Comentario>)ViewData["Comentarios"])
+    {
+        if ((List<Comentario>)ViewData["Comentarios"] != null)
+        {
+            <div>
+                <strong>Título: </strong> @comentario.Titulo <br />
+                <strong>Autor: </strong> @comentario.Autor.Nombre @comentario.Autor.Apellido <br />
+                <strong>Contenido: </strong> @comentario.Contenido <br />
+                <strong>Likes: </strong> @comentario.CalcularCantidadLikes() <br />
+                <strong>Dislikes: </strong> @comentario.CalcularCantidadDislikes() <br />
+                <strong>Valor De Aceptación: </strong> @comentario.CalcularVAComentario() <br />
+                              
+                <form method="post" action="@Url.Action("DarLikeDislikeComentario", "Usuario")">
+                    <input type="hidden" name="IdPost" value="@ViewData["PostId"]" />
+                    <input type="hidden" name="Id" value="@comentario.Id" />
+                    <button type="submit" name="reaccion" value="like">LIKE</button>
+                </form>
+                <form method="post" action="@Url.Action("DarLikeDislikeComentario", "Usuario")">
+                    <input type="hidden" name="Id" value="@comentario.Id" />
+                    <button type="submit" name="reaccion" value="dislike">DISLIKE</button>
+                </form>
+
+                <!-- Poner otros detalles del comentario -->
+            </div>
+        }       
+        <hr />
+    }
+
+    @if ((int)ViewData["ContadorComentarios"] == 0)   
+    {
+        <p>Hasta el momento nadie ha comentado.</p>
+    }
+</div>
+
+@* Realizar un comentario *@
+
+<h3>Comentar:</h3>
+<form method="post" action="@Url.Action("AgregarComentario", "Usuario")">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <textarea name="contenidoComentario" rows="4" cols="50"></textarea>
+    <br />
+    <button type="submit">Agregar Comentario</button>
+</form>
