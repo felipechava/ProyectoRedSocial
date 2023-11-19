@@ -3,6 +3,60 @@
 @using Dominio;
 @model List<Miembro>
 
+<h1>Lista de miembros:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de Nacimiento</th>
+            <th>E-Mail</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Miembro m in Model)
+        {
+            <tr>
+                <th>@m.Nombre</th>
+                <td>@m.Apellido</td>
+                <td>@m.fechaNacimiento.ToShortDateString()</td>
+                <td>@m.Email</td>
+                <td>
+                    @if (TempData["miembroLogueadoEmail"].ToString() != m.Email)
+                    {
+                        Sistema s = Sistema.GetInstancia;
+                        Miembro miembroLogueado = s.ObtenerMiembroPorEmailString((string)TempData["miembroLogueadoEmail"]);
+                        bool solicitudEnviada = m.solicitudesPendientes.Any(inv =>
+                        (inv.miembroSolicitante == m && inv.miembroSolicitado == miembroLogueado) ||
+                        (inv.miembroSolicitante == miembroLogueado && inv.miembroSolicitado == m));
+
+                        bool esAmigo = miembroLogueado.amigos.Contains(m);
+
+                        <form method="post" action="@Url.Action("EnviarInvitacion", "Usuario")">
+                            <input type="hidden" name="Email" value="@m.Email" />
+                            <button type="submit" disabled="@solicitudEnviada" onclick="return confirm('¿Está seguro de que desea enviar una invitación de amistad a @m.Nombre @m.Apellido?')">
+                                @if (solicitudEnviada)
+                                {
+                                    <text>Solicitud Enviada</text>
+                                }
+                                else if (miembroLogueado.amigos.Contains(m))
+                                {
+                                    <text>Es Amigo!</text>
+                                }
+                                else
+                                {
+                                    <text>Enviar Invitación</text>
+                                }
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 

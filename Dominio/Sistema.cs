@@ -184,9 +184,9 @@ namespace Dominio
             miembro3.publicaciones.Add(comentario15);
 
             //Invitaciones
-            //Miembro1 amigo de todos
+            //Miembro1 amigo de casi todos
             Invitacion solicitudAceptada1 = new Invitacion(miembro2, miembro1, EstadoInvitacion.APROBADA);
-            Invitacion solicitudAceptada2 = new Invitacion(miembro3, miembro1, EstadoInvitacion.APROBADA);
+            Invitacion solicitudPendiente2 = new Invitacion(miembro3, miembro1, EstadoInvitacion.PENDIENTE_APROBACION);
             Invitacion solicitudAceptada3 = new Invitacion(miembro4, miembro1, EstadoInvitacion.APROBADA);
             Invitacion solicitudAceptada4 = new Invitacion(miembro5, miembro1, EstadoInvitacion.APROBADA);
             Invitacion solicitudAceptada5 = new Invitacion(miembro6, miembro1, EstadoInvitacion.APROBADA);
@@ -196,7 +196,7 @@ namespace Dominio
             Invitacion solicitudAceptada9 = new Invitacion(miembro10, miembro1, EstadoInvitacion.APROBADA);
 
             miembro1.solicitudesAprobadas.Add(solicitudAceptada1);
-            miembro1.solicitudesAprobadas.Add(solicitudAceptada2);
+            miembro1.solicitudesPendientes.Add(solicitudPendiente2);
             miembro1.solicitudesAprobadas.Add(solicitudAceptada3);
             miembro1.solicitudesAprobadas.Add(solicitudAceptada4);
             miembro1.solicitudesAprobadas.Add(solicitudAceptada5);
@@ -227,7 +227,7 @@ namespace Dominio
             miembro2.solicitudesAprobadas.Add(solicitudAceptada09);
 
             //m3
-            miembro3.solicitudesAprobadas.Add(solicitudAceptada2);
+            //miembro3.solicitudesAprobadas.Add(solicitudAceptada2);
             miembro3.solicitudesAprobadas.Add(solicitudAceptada02);
 
             Invitacion solicitudPendiente1 = new Invitacion(miembro3, miembro4, EstadoInvitacion.PENDIENTE_APROBACION);
@@ -240,7 +240,7 @@ namespace Dominio
             miembro5.solicitudesAprobadas.Add(solicitudAceptada4);
             miembro5.solicitudesAprobadas.Add(solicitudAceptada04);
 
-            Invitacion solicitudPendiente2 = new Invitacion(miembro5, miembro6, EstadoInvitacion.PENDIENTE_APROBACION);
+            //Invitacion solicitudPendiente2 = new Invitacion(miembro5, miembro6, EstadoInvitacion.PENDIENTE_APROBACION);
             miembro5.solicitudesPendientes.Add(solicitudPendiente2); //Pendiente con el m6
             //m6
             miembro6.solicitudesAprobadas.Add(solicitudAceptada5);
@@ -501,6 +501,21 @@ namespace Dominio
         {
             List<Miembro> retorno = new List<Miembro>(miembros);
 
+            retorno.Sort();
+            return retorno;
+        }
+
+        public List<Miembro> ListarTodosLosMiembrosMenosA(Miembro yo)
+        {
+            List<Miembro> retorno = new List<Miembro>();
+
+            foreach (Miembro miembro in miembros)   
+            {
+                if (!miembro.Equals(yo))    
+                {
+                    retorno.Add(miembro);
+                }
+            }
             retorno.Sort();
             return retorno;
         }

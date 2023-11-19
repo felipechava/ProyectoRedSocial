@@ -6,7 +6,6 @@ namespace WebRedSocial.Controllers
 {
     public class UsuarioController : Controller
     {
-
         Sistema s = Sistema.GetInstancia;
 
         public IActionResult VerPosts()
@@ -67,7 +66,7 @@ namespace WebRedSocial.Controllers
             {
                 TempData["mensajeError"] = ex.Message;
                 return View();
-            }           
+            }
         }
 
         public IActionResult VerComentariosPost(int Id)
@@ -274,7 +273,7 @@ namespace WebRedSocial.Controllers
             Miembro miembro = s.ObtenerMiembroPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
             string? rol = HttpContext.Session.GetString("Rol");
 
-            if (rol != null && rol.Equals(Miembro.RolValor))    
+            if (rol != null && rol.Equals(Miembro.RolValor))
             {
                 try
                 {
@@ -290,31 +289,147 @@ namespace WebRedSocial.Controllers
                     TipoReaccion tipoReaccion = (reaccion == "like") ? TipoReaccion.LIKE : TipoReaccion.DISLIKE;
                     miembro.ReaccionarPublicacion(comentario, tipoReaccion);
 
-                    return RedirectToAction("VerComentariosPost", new { Id = IdPost});
-                }               
+                    return RedirectToAction("VerComentariosPost", new { Id = IdPost });
+                }
                 catch (Exception ex)
                 {
                     TempData["mensajeError"] = ex.Message;
                     return RedirectToAction("Mostrar", "Error");
                 }
-            } else
+            }
+            else
             {
                 TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
                 return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso
-            }           
+            }
         }
 
         public IActionResult ListarOtrosMiembros()
         {
+            Miembro miembro = s.ObtenerMiembroPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
+            TempData["miembroLogueadoEmail"] = miembro.Email;
             string? rol = HttpContext.Session.GetString("Rol");
 
-            if (rol != null && rol.Equals(Administrador.RolValor))
+            if (rol != null && rol.Equals(Miembro.RolValor))
             {
-                List<Miembro> miembros = s.ListarMiembrosPorNombreApellidoAscendente();
+                List<Miembro> miembros = miembro.ListarMiembrosNoAmigos();
                 return View(miembros);
             }
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
             return RedirectToAction("Mostrar", "Error"); // Redirigir página de no permiso
+        }
+
+        [HttpPost]
+        public IActionResult EnviarInvitacion(string Email)
+        {
+            Miembro miembro = s.ObtenerMiembroPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
+            TempData["miembroLogueadoEmail"] = miembro.Email;
+            string? rol = HttpContext.Session.GetString("Rol");
+
+            if (rol != null && rol.Equals(Miembro.RolValor))
+            {
+                try
+                {
+                    //Busca al miembro que va a enviar la invitación
+                    Miembro miembroDestinatario = s.BuscarMiembroConEmail(Email);
+
+                    //Chequear si ya se envió una invitacion a ese usuario
+                    miembro.ComprobarSiSeEnvioInvitacion(miembroDestinatario);
+
+                    //Lógica de enviar invitación al apretar botón "Enviar Invitación"
+                    Invitacion nuevaInvitacion = miembro.EnviarSolicitudAmistad(miembroDestinatario);
+
+                    return RedirectToAction("ListarOtrosMiembros", "Usuario");
+                }
+                catch (Exception ex)
+                {
+                    TempData["mensajeError"] = ex.Message;
+                    return RedirectToAction("Mostrar", "Error");
+                }
+            }
+            TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
+            return RedirectToAction("Mostrar", "Error"); // Redirigir página de no permiso
+        }
+
+        public IActionResult VerSolicitudesPendientes()
+        {
+            Miembro miembro = s.ObtenerMiembroPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
+            string? rol = HttpContext.Session.GetString("Rol");
+
+            if (rol != null && rol.Equals(Miembro.RolValor))
+            {
+                List<Invitacion> solicitudesPendientesDelMiembroLogueado = miembro.ListarSolicitudesPendientes();
+
+                return View(solicitudesPendientesDelMiembroLogueado);
+            }
+            else
+            {
+                TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
+                return RedirectToAction("Mostrar", "Error"); // Redirigir página de no permiso
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AceptarRechazarInvitacionPendiente(int InvitacionId, string Accion)
+        {
+            Miembro miembro = s.ObtenerMiembroPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
+            string? rol = HttpContext.Session.GetString("Rol");
+
+            if (rol != null && rol.Equals(Miembro.RolValor))
+            {
+                Invitacion? invitacion = miembro.ListarSolicitudesPendientes().FirstOrDefault(i => i.Id == InvitacionId);
+
+                if (invitacion != null)
+                {
+                    try
+                    {
+                        if (Accion == "Aceptar")
+                        {
+                            miembro.AceptarSolicitudAmistad(invitacion);
+                        }
+                        else if (Accion == "Rechazar")
+                        {
+                            miembro.RechazarSolicitudDeAmistad(invitacion);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["mensajeError"] = ex.Message;
+                        return RedirectToAction("Mostrar", "Error");
+                    }
+                }
+                return RedirectToAction("VerSolicitudesPendientes", "Usuario");
+            }
+            else
+            {
+                TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
+                return RedirectToAction("Mostrar", "Error"); // Redirigir página de no permiso
+            }
+        }
+
+        public IActionResult Filter(string text, int number)
+        {
+            List<Publicacion> publicaciones = s.publicaciones;
+
+            var filterPost = publicaciones
+                .Where(p => p is Post)
+                .Cast<Post>()
+                .Where(post => post.Texto.Contains(text) && post.CalcularVAPost() >= number).ToList();
+
+            var filterComments = publicaciones
+                .Where(p => p is Comentario)
+                .Cast<Comentario>()
+                .Where(post => post.Texto.Contains(text) && post.CalcularVAComentario() >= number).ToList();
+
+            ViewBag.PostsFilter = filterPost;
+            ViewBag.ComentariosFilter = filterComments;
+
+            return View("FilterResults");
+        }
+
+        public IActionResult FilterResults()
+        {
+            return View();
         }
 
     }

@@ -1,0 +1,96 @@
+﻿@* RESULTADO FILTRO - TEXTO y NÚMERO *@
+
+@using Dominio;
+
+<h2>Resultados del Filtro:</h2>
+
+<h3>Posts</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Fecha</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Valor Aceptación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Post p in ViewBag.PostsFilter)
+        {
+            <tr>
+                <th>@p.Titulo</th>
+                <td>@Html.ActionLink(p.Autor.Email, "ObtenerUsuarioPorEmail", "Usuario", new {Email = p.Autor.Email})</td>
+                <th>@p.Fecha.ToShortDateString()</th>
+                <td>@p.CalcularCantidadLikes()</td>
+                <td>@p.CalcularCantidadDislikes()</td>
+                <td>@p.CalcularVAPost()</td>
+                <td>
+                    <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
+                        <input type="hidden" name="Id" value="@p.Id" />
+                        <button type="submit" name="reaccion" value="like">LIKE</button>
+                    </form>
+                    <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
+                        <input type="hidden" name="Id" value="@p.Id" />
+                        <button type="submit" name="reaccion" value="dislike">DISLIKE</button>
+                    </form>
+                </td>
+                <td>
+                    <a asp-controller="Usuario" asp-action="VerComentariosPost" asp-route-id="@p.Id">Ver Comentarios</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Comentarios</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Autor</th>
+            <th>Fecha</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Valor Aceptación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Comentario c in ViewBag.ComentariosFilter)
+        {
+            <tr>
+                <td>@Html.ActionLink(c.Autor.Email, "ObtenerUsuarioPorEmail", "Usuario", new {Email = c.Autor.Email})</td>
+                <th>@c.Fecha.ToShortDateString()</th>
+                <td>@c.CalcularCantidadLikes()</td>
+                <td>@c.CalcularCantidadDislikes()</td>
+                <td>@c.CalcularVAComentario()</td>
+                <td>
+                    <div>
+                        <strong>Autor: </strong> @c.Autor.Nombre @c.Autor.Apellido <br />
+                        <strong>Contenido: </strong> @c.Contenido <br />
+                        <strong>Likes: </strong> @c.CalcularCantidadLikes() <br />
+                        <strong>Dislikes: </strong> @c.CalcularCantidadDislikes() <br />
+                        <c>Valor De Aceptación: </c> @c.CalcularVAComentario() <br />
+
+                        <form method="post" action="@Url.Action("DarLikeDislikeComentario", "Usuario")">
+                            <input type="hidden" name="IdPost" value="@ViewData["PostId"]" />
+                            <input type="hidden" name="Id" value="@c.Id" />
+                            <button type="submit" name="reaccion" value="like">LIKE</button>
+                        </form>
+                        <form method="post" action="@Url.Action("DarLikeDislikeComentario", "Usuario")">
+                            <input type="hidden" name="Id" value="@c.Id" />
+                            <button type="submit" name="reaccion" value="dislike">DISLIKE</button>
+                        </form>
+
+                        <!-- Poner otros detalles del comentario -->
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

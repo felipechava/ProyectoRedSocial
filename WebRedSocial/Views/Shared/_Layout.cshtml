@@ -28,9 +28,9 @@
 
                         @if (Context.Session.GetString("Rol") == Administrador.RolValor)
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarUsuarios">Listar Miembros</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarUsuarios">Listar Miembros</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarPosts">Listar Posts</a>
                             </li>
@@ -38,12 +38,18 @@
 
                         @if (Context.Session.GetString("Rol") == Miembro.RolValor)
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="RealizarPost">Realizar Post</a>
-                        </li>                            
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerPosts">Ver Posts</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="RealizarPost">Realizar Post</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerPosts">Ver Posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="ListarOtrosMiembros">Listar Miembros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerSolicitudesPendientes">Ver Solicitudes Pendientes</a>
+                            </li>
                         }
                        
                         @if (Context.Session.GetString("UsuarioLogueado") == null)

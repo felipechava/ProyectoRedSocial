@@ -14,7 +14,6 @@
         if ((List<Comentario>)ViewData["Comentarios"] != null)
         {
             <div>
-                <strong>Título: </strong> @comentario.Titulo <br />
                 <strong>Autor: </strong> @comentario.Autor.Nombre @comentario.Autor.Apellido <br />
                 <strong>Contenido: </strong> @comentario.Contenido <br />
                 <strong>Likes: </strong> @comentario.CalcularCantidadLikes() <br />

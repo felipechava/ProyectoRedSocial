@@ -16,8 +16,6 @@ namespace Dominio
 
         public bool esPrivado { get; set; } = false;
 
-   
-
         //Constructor
         public Comentario(string unTexto, Miembro unAutor, TipoPublicacion unTipo, string unTitulo, string unContenido, bool esPrivado) : base (unTexto, unAutor, unTipo)
         {

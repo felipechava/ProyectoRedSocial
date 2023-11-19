@@ -3,6 +3,18 @@
 
 <h1>Lista de posts en el sistema:</h1>
 
+@* Filtrado de texto y número *@
+
+<form method="get" action="@Url.Action("Filter", "Usuario")">
+    <label for="text">Texto:</label>
+    <input type="text" name="text" id="text" />
+
+    <label for="number">Número:</label>
+    <input type="number" name="number" id="number" />
+
+    <button type="submit">Buscar</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>

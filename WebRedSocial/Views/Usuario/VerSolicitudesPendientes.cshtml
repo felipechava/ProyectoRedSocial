@@ -1,0 +1,39 @@
+﻿@* SOLICITUDES PENDIENTES - USUARIO *@
+
+@using Dominio;
+@model List<Invitacion>
+
+<h1>Mis solicitudes pendientes:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Invitacion i in Model)
+        {
+            <tr>
+                <th>@i.Id</th>
+                <th>@i.fechaSolicitud.ToShortDateString()</th>
+                <td>@i.miembroSolicitante.Nombre</td>
+                <td>@i.miembroSolicitante.Apellido</td>
+                <td>
+                    <form method="post" action="@Url.Action("AceptarRechazarInvitacionPendiente", "Usuario")">
+                        <input type="hidden" name="InvitacionId" value="@i.Id" />
+                        <button type="submit" onclick="return confirm('¿Está seguro de que desea Aceptar la invitacion?')" name="Accion" value="Aceptar">Aceptar</button>
+                        <button type="submit" onclick="return confirm('¿Está seguro de que desea Rechazar la invitacion?')" name="Accion" value="Rechazar">Rechazar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

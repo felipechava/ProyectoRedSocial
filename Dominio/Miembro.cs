@@ -31,6 +31,8 @@ namespace Dominio
 
         public static string RolValor = "MIE";
 
+        public bool SolicitudEnviada { get; set; } = false;
+
         //Constructor
         public Miembro(string unEmail, string unPassword, string suNombre, string suApellido, DateTime suFechaNacimiento) : base(unEmail, unPassword)
         {
@@ -44,6 +46,7 @@ namespace Dominio
             this.solicitudesAprobadas = new List<Invitacion>();
             this.solicitudesRechazadas = new List<Invitacion>();
             this.Rol = Miembro.RolValor;
+            this.SolicitudEnviada = false;
         }  
         
         public Miembro(string unEmail, string unPassword) : base(unEmail, unPassword)
@@ -60,6 +63,7 @@ namespace Dominio
             this.solicitudesPendientes = new List<Invitacion>();
             this.solicitudesAprobadas = new List<Invitacion>();
             this.solicitudesRechazadas = new List<Invitacion>();
+            this.SolicitudEnviada = false;
         } 
 
         //M É T O D O S
@@ -97,14 +101,45 @@ namespace Dominio
             {
                 throw new Exception($"No puedes enviar la solicitud porque el destinatario está bloqueado por un administrador.");
             }
+            else if (amigos.Contains(miembroDestinatario))
+            {
+                throw new Exception($"Este miembro ya es tu amigo!");
+            }
             else
             {
                 Invitacion solicitud = new Invitacion(this, miembroDestinatario, EstadoInvitacion.PENDIENTE_APROBACION);
 
                 miembroDestinatario.solicitudesPendientes.Add(solicitud);
+                this.solicitudesPendientes.Add(solicitud);
 
                 return solicitud;
             }
+        }
+
+        public bool ComprobarSiSeEnvioInvitacion(Miembro miembroDestinatario)
+        {
+            Invitacion? invitacionBuscadaAprobada = this.solicitudesPendientes.FirstOrDefault(inv =>
+        (inv.miembroSolicitante == this && inv.miembroSolicitado == miembroDestinatario) ||
+        (inv.miembroSolicitante == miembroDestinatario && inv.miembroSolicitado == this));
+
+            Invitacion? invitacionBuscadaRechazada = this.solicitudesRechazadas.FirstOrDefault(inv =>
+                                           inv.miembroSolicitante == miembroDestinatario && inv.miembroSolicitado == this);
+
+            if (amigos.Contains(miembroDestinatario))
+            {
+                throw new Exception($"Ya eres amigo de {miembroDestinatario.Nombre} {miembroDestinatario.Apellido}");
+            }
+            else if (invitacionBuscadaAprobada != null)
+            {
+                throw new Exception($"Tienes una solicitud pendiente con {miembroDestinatario.Nombre} {miembroDestinatario.Apellido}");
+            }
+            else if (invitacionBuscadaRechazada != null)
+            {
+                return true;
+                throw new Exception($"Tienes una solicitud rechazada con {miembroDestinatario.Nombre} {miembroDestinatario.Apellido}");
+            }
+
+            return false;
         }
 
         public void AceptarSolicitudAmistad(Invitacion unaSolicitudDeAmistad)
@@ -119,6 +154,7 @@ namespace Dominio
                 {
                     unaSolicitudDeAmistad.Estado = EstadoInvitacion.APROBADA;
                     solicitudesAprobadas.Add(unaSolicitudDeAmistad);
+                    solicitudesPendientes.Remove(unaSolicitudDeAmistad);
                     unaSolicitudDeAmistad.miembroSolicitante.solicitudesAprobadas.Add(unaSolicitudDeAmistad); //Agrega la solicitud a la lista de aprobadas del miembro que envió la solicitud
                 }
                 else
@@ -140,6 +176,7 @@ namespace Dominio
                 {
                     unaSolicitudDeAmistad.Estado = EstadoInvitacion.RECHAZADA;
                     solicitudesRechazadas.Add(unaSolicitudDeAmistad);
+                    solicitudesPendientes.Remove(unaSolicitudDeAmistad);
                     unaSolicitudDeAmistad.miembroSolicitante.solicitudesRechazadas.Add(unaSolicitudDeAmistad); //Agrega la solicitud a la lista de rechazadas del miembro que envió la solicitud
                 }
                 else
@@ -202,6 +239,32 @@ namespace Dominio
                 return Nombre.CompareTo(otroMiembro.Nombre);
             }
             return resultadoApellido;
+        }
+
+        public List<Invitacion> ListarSolicitudesPendientes()
+        {
+            List<Invitacion> misSolicitudesPendientes = new List<Invitacion>(solicitudesPendientes);
+
+            return misSolicitudesPendientes;
+        }
+
+        public List<Miembro> ListarMiembrosNoAmigos()
+        {
+            Sistema s = Sistema.GetInstancia;
+            List<Miembro> retorno = new List<Miembro>();
+
+            foreach (Miembro miembro in s.miembros)
+            {
+                if (!amigos.Contains(miembro)) //Si no lo tengo en la lista de amigos   
+                {
+                    if (!miembro.Equals(this)) //Si no es el mismo miembro lo agrega
+                    {
+                        retorno.Add(miembro);
+                    }
+                }
+            }
+            retorno.Sort();
+            return retorno;
         }
 
     }

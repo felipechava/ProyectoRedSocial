@@ -60,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbVxMaXN0YXJVc3Vhcmlvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/FilterResults.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xGaWx0ZXJSZXN1bHRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -78,6 +82,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/VerPosts.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xWZXJQb3N0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/VerSolicitudesPendientes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xWZXJTb2xpY2l0dWRlc1BlbmRpZW50ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/_ViewImports.cshtml]
