@@ -18,9 +18,5 @@ namespace Dominio
             this.TipoReaccion = unTipoReaccion;
             this.miembroQueReacciona = unMiembroQueReacciona;
         }
-
-        //M É T O D O S
-
-
     }
 }

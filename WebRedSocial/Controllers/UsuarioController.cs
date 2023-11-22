@@ -33,39 +33,28 @@ namespace WebRedSocial.Controllers
 
                 foreach (Post post in posts)
                 {
-                    if (miembro.amigos.Contains(post.Autor) || post.Autor == miembro && post.esHabilitado != false) //Si es amigo o si es post propio
+                    if (miembro.amigos.Contains(post.Autor) || post.Autor == miembro && post.esHabilitado != false || post.esPrivado == false) //Si es post de un amigo o si es post propio o si es público
                     {
-                        if (post.esPrivado == false || post.esPrivado == true && post.Autor == miembro || post.esPrivado == true && miembro.amigos.Contains(post.Autor) && post.esHabilitado != false) //Si no es privado
+                        if (!post.esPrivado || post.esPrivado && post.Autor == miembro || post.esPrivado && miembro.amigos.Contains(post.Autor) && post.esHabilitado)
                         {
-                            cantidadLikes = post.CalcularCantidadLikes();
-                            cantidadDislikes = post.CalcularCantidadDislikes();
-                            VA = post.CalcularVAPost();
+                            if (post.esHabilitado)  
+                            {
+                                cantidadLikes = post.CalcularCantidadLikes();
+                                cantidadDislikes = post.CalcularCantidadDislikes();
+                                VA = post.CalcularVAPost();
 
-                            listaPostHabilitados.Add(post); //Añado el post a habilitados
+                                listaPostHabilitados.Add(post); //Añado el post a habilitados
+                            }                         
                         }
                     }
                 }
+                ViewData["ContadorPostHabilitados"] = listaPostHabilitados.Count();
                 return View(listaPostHabilitados);
             }
             else
             {
                 TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
                 return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso
-            }
-        }
-
-        public IActionResult ObtenerUsuarioPorEmail(Miembro unEmail)
-        {
-            try
-            {
-                Miembro miembro = s.ObtenerMiembroPorEmail(unEmail);
-
-                return View(miembro);
-            }
-            catch (Exception ex)
-            {
-                TempData["mensajeError"] = ex.Message;
-                return View();
             }
         }
 
@@ -165,7 +154,6 @@ namespace WebRedSocial.Controllers
                 return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso
             }
         }
-
 
         public IActionResult RealizarPost()
         {
@@ -313,6 +301,8 @@ namespace WebRedSocial.Controllers
             if (rol != null && rol.Equals(Miembro.RolValor))
             {
                 List<Miembro> miembros = miembro.ListarMiembrosNoAmigos();
+                ViewData["ContadorOtrosMiembros"] = miembros.Count();
+
                 return View(miembros);
             }
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
@@ -409,22 +399,30 @@ namespace WebRedSocial.Controllers
 
         public IActionResult Filter(string text, int number)
         {
-            List<Publicacion> publicaciones = s.publicaciones;
+            if (text != null)   
+            {
+                List<Publicacion> publicaciones = s.publicaciones;
 
-            var filterPost = publicaciones
-                .Where(p => p is Post)
-                .Cast<Post>()
-                .Where(post => post.Texto.Contains(text) && post.CalcularVAPost() >= number).ToList();
+                var filterPost = publicaciones
+                    .Where(p => p is Post)
+                    .Cast<Post>()
+                    .Where(post => post.Texto.ToLower().Contains(text.ToLower()) && post.CalcularVAPost() >= number).ToList();
 
-            var filterComments = publicaciones
-                .Where(p => p is Comentario)
-                .Cast<Comentario>()
-                .Where(post => post.Texto.Contains(text) && post.CalcularVAComentario() >= number).ToList();
+                var filterComments = publicaciones
+                    .Where(p => p is Comentario)
+                    .Cast<Comentario>()
+                    .Where(post => post.Texto.ToLower().Contains(text.ToLower()) && post.CalcularVAComentario() >= number).ToList();
 
-            ViewBag.PostsFilter = filterPost;
-            ViewBag.ComentariosFilter = filterComments;
+                ViewBag.PostsFilter = filterPost;
+                ViewBag.ComentariosFilter = filterComments;
 
-            return View("FilterResults");
+                return View("FilterResults");
+            } else
+            {
+                TempData["mensajeError"] = "El campo no puede estar vacío.";
+                return RedirectToAction("Mostrar", "Error"); // Redirigir página de no permiso
+            }
+            
         }
 
         public IActionResult FilterResults()

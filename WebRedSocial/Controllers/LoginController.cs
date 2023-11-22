@@ -11,10 +11,9 @@ namespace WebRedSocial.Controllers
         {
             string? rol = HttpContext.Session.GetString("Rol");
 
-            if (rol != null)
+            if (rol != null) //Si se inició sesión
             {
-                TempData["mensajeError"] = "Ya has iniciado sesión, no necesitas acceder a esta página.";
-                return RedirectToAction("Mostrar", "Error");
+                return RedirectToAction("Index", "Home"); //Redirecciona a página de inicio
             }
             return View();
         }
@@ -24,10 +23,9 @@ namespace WebRedSocial.Controllers
         {
             string? rol = HttpContext.Session.GetString("Rol");
 
-            if (rol != null)
+            if (rol != null) //Si se inició sesión
             {
-                TempData["mensajeError"] = "Ya has iniciado sesión, no necesitas acceder a esta página.";
-                return RedirectToAction("Mostrar", "Error");
+                return RedirectToAction("Index", "Home"); //Redirecciona a página de inicio
             }
             else
             {
@@ -72,27 +70,29 @@ namespace WebRedSocial.Controllers
                 try
                 {
                     s.AltaMiembro(unMiembro);
-                    TempData["mensaje"] = false; //Porque redirecciona
+                    TempData["mensaje"] = false;
 
-                    return RedirectToAction("Registro");
+                    //Para ingresar automáticamente tras registrarse
+                    Usuario usuarioLogueado = s.ObtenerUsuarioLogueado(unMiembro.Email, unMiembro.Password);
+                    HttpContext.Session.SetString("UsuarioLogueado", usuarioLogueado.Email); //Guarda en la session que el usuario está logueado y verifica datos
+                    HttpContext.Session.SetString("Rol", usuarioLogueado.Rol); //Guarda el rol
+
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
                     TempData["mensaje"] = true;
-                    TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
-                    return RedirectToAction("Mostrar", "Error"); // Redirigir página de no permiso
+                    TempData["mensajeError"] = ex.Message;
                 }
             }
-            return RedirectToAction("Mostrar", "Error");
+            return RedirectToAction("Registro", "Login");
         }
 
         public IActionResult CerrarSesion()
         {
-            //HttpContext.Session.Remove("UsuarioLogueado");
             TempData["MostrarAlerta"] = true;
-
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Login");
         }
     }
 }

@@ -13,30 +13,37 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Post post in Model)
+        @if ((int)ViewData["ContadorPosts"] == 0)
         {
-            <tr>
-                <td>@post.Titulo</td>
-                <td>@post.Autor.Nombre</td>
-                <td>@post.Contenido</td>
-                <td>
-                    @if (post.esHabilitado == true)
-                    {
-                        <form method="post" action="@Url.Action("BanearPost", "UsuarioAdm")">
-                            <input type="hidden" name="Id" value="@post.Id" />
-                            <button type="submit" onclick="return confirm('¿Está seguro de que desea banear al post @post.Id?')">Banear</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form method="post" action="@Url.Action("BanearPost", "UsuarioAdm")">
-                            <input type="hidden" name="Id" value="@post.Id" />
-                            <button type="submit" onclick="return confirm('¿Está seguro de que desea volver a habilitar al post @post.Id?')">Habilitar</button>
-                        </form>
-                    }
-                </td>
-            </tr>
+            <text>Hasta el momento no existe ningún post.</text>
         }
+        else
+        {
+            @foreach (Post post in Model)
+            {
+                <tr>
+                    <td>@post.Titulo</td>
+                    <td>@post.Autor.Nombre</td>
+                    <td>@post.Contenido</td>
+                    <td>
+                        @if (post.esHabilitado == true)
+                        {
+                            <form method="post" action="@Url.Action("BanearPost", "UsuarioAdm")">
+                                <input type="hidden" name="Id" value="@post.Id" />
+                                <button type="submit" onclick="return confirm('¿Está seguro de que desea banear al post @post.Id?')">Banear</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" action="@Url.Action("BanearPost", "UsuarioAdm")">
+                                <input type="hidden" name="Id" value="@post.Id" />
+                                <button type="submit" onclick="return confirm('¿Está seguro de que desea volver a habilitar al post @post.Id?')">Habilitar</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }      
     </tbody>
 </table>
 

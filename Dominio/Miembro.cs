@@ -31,8 +31,6 @@ namespace Dominio
 
         public static string RolValor = "MIE";
 
-        public bool SolicitudEnviada { get; set; } = false;
-
         //Constructor
         public Miembro(string unEmail, string unPassword, string suNombre, string suApellido, DateTime suFechaNacimiento) : base(unEmail, unPassword)
         {
@@ -46,13 +44,7 @@ namespace Dominio
             this.solicitudesAprobadas = new List<Invitacion>();
             this.solicitudesRechazadas = new List<Invitacion>();
             this.Rol = Miembro.RolValor;
-            this.SolicitudEnviada = false;
-        }  
-        
-        public Miembro(string unEmail, string unPassword) : base(unEmail, unPassword)
-        {
-            this.Rol = Miembro.RolValor;
-        }
+        }        
 
         public Miembro()
         {
@@ -63,7 +55,6 @@ namespace Dominio
             this.solicitudesPendientes = new List<Invitacion>();
             this.solicitudesAprobadas = new List<Invitacion>();
             this.solicitudesRechazadas = new List<Invitacion>();
-            this.SolicitudEnviada = false;
         } 
 
         //M É T O D O S
@@ -119,8 +110,8 @@ namespace Dominio
         public bool ComprobarSiSeEnvioInvitacion(Miembro miembroDestinatario)
         {
             Invitacion? invitacionBuscadaAprobada = this.solicitudesPendientes.FirstOrDefault(inv =>
-        (inv.miembroSolicitante == this && inv.miembroSolicitado == miembroDestinatario) ||
-        (inv.miembroSolicitante == miembroDestinatario && inv.miembroSolicitado == this));
+                (inv.miembroSolicitante == this && inv.miembroSolicitado == miembroDestinatario) ||
+                (inv.miembroSolicitante == miembroDestinatario && inv.miembroSolicitado == this));
 
             Invitacion? invitacionBuscadaRechazada = this.solicitudesRechazadas.FirstOrDefault(inv =>
                                            inv.miembroSolicitante == miembroDestinatario && inv.miembroSolicitado == this);

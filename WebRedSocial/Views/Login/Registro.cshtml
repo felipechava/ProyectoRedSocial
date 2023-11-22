@@ -1,27 +1,76 @@
 ﻿@using Dominio;
 
-<form action="/login/altamiembro" method="post">
-    <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input type="text" class="form-control" id="email" name="Email">
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="Password">
-    </div>
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="Nombre">
-    </div>
-    <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input type="text" class="form-control" id="apellido" name="Apellido">
-    </div>
-    <div class="mb-3">
-        <label for="nacimiento" class="form-label">Fecha de Nacimiento:</label>
-        <input type="date" class="form-control" id="nacimiento" name="fechaNacimiento">
-    </div>
-    <button type="submit" class="btn btn-primary">Registrarse</button> <br /><br />
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My Awesome Login Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="~/css/login.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="https://cdn-e360.s3-sa-east-1.amazonaws.com/redes-sociales-para-empresas-large-JKGhYjKMCp.png" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form action="@Url.Action("AltaMiembro", "Login")" method="post">
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+							</div>
+							<input type="text" id="email" name="Email" class="form-control input_user" value="" placeholder="E-Mail">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" id="password" name="Password" class="form-control input_pass" value="" placeholder="Password">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-id-card"></i></span>
+							</div>
+							<input type="text" id="nombre" name="Nombre" class="form-control input_user" value="" placeholder="Nombre">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-id-card"></i></span>
+							</div>
+							<input type="text" id="apellido" name="Apellido" class="form-control input_user" value="" placeholder="Apellido">
+						</div>
+						<div class="row mb-3">
+							<div class="col-2 input-group-append">
+								<span class="input-group-text"><i class="fas fa-id-card"></i></span>
+							</div>
+							<div class="col-10">
+								<label for="nacimiento" class="form-label">Fecha de Nacimiento:</label>
+								<input type="date" id="nacimiento" name="fechaNacimiento" class="form-control input_user" value="" placeholder="Fecha de Nacimiento">
+							</div>
+						</div>
+
+
+						<div class="d-flex justify-content-center mt-3 login_container">
+							<button type="submit" name="button" class="btn login_btn">Registrarse</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
 
     @if (TempData["mensaje"] != null)
     {
@@ -39,7 +88,7 @@
 
         }
     }
-</form>
+
 
 
 

@@ -15,56 +15,72 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RED SOCIAL</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
 
-                        @if (Context.Session.GetString("Rol") == Administrador.RolValor)
-                        {
+                @if (Context.Session.GetString("Rol") != null) //Si se inició sesión
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RED SOCIAL</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarUsuarios">Listar Miembros</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarPosts">Listar Posts</a>
-                            </li>
-                        }
 
-                        @if (Context.Session.GetString("Rol") == Miembro.RolValor)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="RealizarPost">Realizar Post</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerPosts">Ver Posts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="ListarOtrosMiembros">Listar Miembros</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerSolicitudesPendientes">Ver Solicitudes Pendientes</a>
-                            </li>
-                        }
-                       
-                        @if (Context.Session.GetString("UsuarioLogueado") == null)
-                        {
+                            @if (Context.Session.GetString("Rol") == Administrador.RolValor)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarUsuarios">Listar Miembros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioAdm" asp-action="ListarPosts">Listar Posts</a>
+                                </li>
+                            }
+
+                            @if (Context.Session.GetString("Rol") == Miembro.RolValor)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="RealizarPost">Realizar Post</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerPosts">Ver Posts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="ListarOtrosMiembros">Listar Miembros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerSolicitudesPendientes">Ver Solicitudes Pendientes</a>
+                                </li>
+                            }
+
+                            @if (Context.Session.GetString("UsuarioLogueado") == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="CerrarSesion">Cerrar Sesión</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                } else //Si NO se inició sesión
+                {
+                    @if (Context.Session.GetString("UsuarioLogueado") == null)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                             </li>
-                        } else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="CerrarSesion">Cerrar Sesión</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                        </ul>
+                    }
+                }
+                
             </div>
         </nav>
     </header>

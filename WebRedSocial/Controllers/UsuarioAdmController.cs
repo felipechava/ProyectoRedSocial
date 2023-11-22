@@ -19,6 +19,8 @@ namespace WebRedSocial.Controllers
             if (rol != null && rol.Equals(Administrador.RolValor))
             {
                 List<Miembro> miembros = s.ListarMiembrosPorNombreApellidoAscendente();
+                ViewData["ContadorMiembros"] = miembros.Count();
+
                 return View(miembros);
             }
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
@@ -28,26 +30,25 @@ namespace WebRedSocial.Controllers
         [HttpPost]
         public IActionResult BanearPost(int Id)
         {
+            Administrador administrador = s.ObtenerAdmPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
             string? rol = HttpContext.Session.GetString("Rol");
 
             if (rol != null && rol.Equals(Administrador.RolValor))
             {
-                Post post = s.ObtenerPostPorIntId(Id);
-
-                if (post.esHabilitado == false)
+                try
                 {
-                    post.esHabilitado = true;
-                    //TempData["mensajeBaneado"] = "Este post ya está banneado.";
-                }
-                else
-                {
-                    post.esHabilitado = false;
-                    TempData["mensajeBaneado"] = "Post baneado exitosamente.";
-                }
+                    Post post = s.ObtenerPostPorIntId(Id);
 
-                return RedirectToAction("ListarPosts", "UsuarioAdm");
+                    administrador.CensurarPost(post);
+
+                    return RedirectToAction("ListarPosts", "UsuarioAdm");
+                }
+                catch (Exception ex)    
+                {
+                    TempData["mensajeError"] = ex.Message;
+                    return View();
+                }               
             }
-
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
             return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso
         }
@@ -59,52 +60,57 @@ namespace WebRedSocial.Controllers
             if (rol != null && rol.Equals(Administrador.RolValor))
             {
                 List<Post> posts = s.ListarPosts();
+                ViewData["ContadorPosts"] = posts.Count();
                 return View(posts);
             }
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
             return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso
         }
 
-        public IActionResult BloquearMiembro(Miembro unEmail) //El problema acá es que no se como hacer para identificar al adm para después hacer la lógica de bloquear desde el this.adm
+        public IActionResult BloquearMiembro(Miembro unEmail)
         {
+            Administrador administrador = s.ObtenerAdmPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
             string? rol = HttpContext.Session.GetString("Rol");
 
             if (rol != null && rol.Equals(Administrador.RolValor))
             {
-                Miembro miembro = s.ObtenerMiembroPorEmail(unEmail);
+                try
+                {
+                    Miembro miembro = s.ObtenerMiembroPorEmail(unEmail);
 
-                if (miembro.esBloqueado == true)
-                {
-                    TempData["mensajeBloqueado"] = "Este usuario ya está bloqueado.";
+                    administrador.BloquearMiembro(miembro);
+
+                    return RedirectToAction("ListarUsuarios", "UsuarioAdm");
                 }
-                else
+                catch (Exception ex)
                 {
-                    miembro.esBloqueado = true;
-                    TempData["mensajeExito"] = "Usuario bloqueado exitosamente.";
-                }
-                return RedirectToAction("ListarUsuarios", "UsuarioAdm");
+                    TempData["mensajeError"] = ex.Message;
+                    return View();
+                }            
             }
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
             return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso
         }
-        public IActionResult DesbloquearMiembro(Miembro unEmail) 
+
+        public IActionResult DesbloquearMiembro(Miembro unEmail)
         {
+            Administrador administrador = s.ObtenerAdmPorEmailString(HttpContext.Session.GetString("UsuarioLogueado"));
             string? rol = HttpContext.Session.GetString("Rol");
 
             if (rol != null && rol.Equals(Administrador.RolValor))
             {
-                Miembro miembro = s.ObtenerMiembroPorEmail(unEmail);
+                try
+                {
+                    Miembro miembro = s.ObtenerMiembroPorEmail(unEmail);
+                    administrador.DesbloquearMiembro(miembro);
 
-                if (miembro.esBloqueado == true) //Si está bloqueado
-                {
-                    miembro.esBloqueado = false; //Lo desbloqueo
-                    TempData["mensajeDeExito"] = "Usuario desbloqueado exitosamente.";
+                    return RedirectToAction("ListarUsuarios", "UsuarioAdm");
                 }
-                else
+                catch (Exception ex)
                 {
-                    TempData["message"] = "Este usuario ya está bloqueado.";
+                    TempData["mensajeError"] = ex.Message;
+                    return View();
                 }
-                return RedirectToAction("ListarUsuarios", "UsuarioAdm");
             }
             TempData["mensajeError"] = "No está autorizado para acceder a esta página.";
             return RedirectToAction("Mostrar", "Error"); // Redirigir a la página de no permiso

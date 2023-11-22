@@ -32,7 +32,19 @@ namespace Dominio
             }
             else
             {
-            unMiembro.esBloqueado = true;
+                unMiembro.esBloqueado = true;
+            }
+        }
+
+        public void DesbloquearMiembro(Miembro unMiembro)
+        {
+            if (unMiembro.esBloqueado == true) //Si está bloqueado
+            {
+                unMiembro.esBloqueado = false; //Lo desbloqueo
+            }
+            else
+            {
+                throw new Exception($"Este usuario ya está bloqueado.");
             }
         }
 
@@ -40,7 +52,7 @@ namespace Dominio
         {
             if (!unPost.esHabilitado)
             {
-                throw new Exception($"La publicación ya está censurada.");
+                throw new Exception($"La publicación ya está baneada.");
             }
             else
             {

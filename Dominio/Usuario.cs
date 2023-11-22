@@ -52,20 +52,9 @@ namespace Dominio
 
         private void ValidarEmailArroba()
         {
-            if (!this.Email.Contains("@") && this.Email.EndsWith(".com"))
+            if (!this.Email.Contains("@") || this.Email.EndsWith(".com"))
             {
                 throw new Exception($"El campo del email debe tener un @ y terminar con '.com'.");
-            }
-        }
-
-        public bool IniciarSesion(string emailIngresado, string passwordIngresado)
-        {
-            if (this.Email == emailIngresado && this.Password == passwordIngresado) 
-            {
-                return this.Email == emailIngresado && this.Password == passwordIngresado;
-            } else
-            {
-                throw new Exception($"Email o contraseña incorrecto.");
             }
         }
     }

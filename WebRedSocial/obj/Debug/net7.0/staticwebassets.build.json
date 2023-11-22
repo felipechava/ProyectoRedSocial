@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cdtuOID/TAWdsvbZOOPA3sNIKue4SBEMD23LNEVg78A=",
+  "Hash": "28QQZGH5gyoYXBd1uI8VatY+2G1LTpSpqwG7P3ZKpwo=",
   "Source": "WebRedSocial",
   "BasePath": "_content/WebRedSocial",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\felic\\OneDrive\\Desktop\\Programación 2\\OBLIGATORIO\\CHAVARRIA_OBL\\WebRedSocial\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\WebRedSocial.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\felic\\OneDrive\\Desktop\\Programación 2\\OBLIGATORIO\\CHAVARRIA_OBL\\WebRedSocial\\wwwroot\\css\\Login.css",
+      "SourceId": "WebRedSocial",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\felic\\OneDrive\\Desktop\\Programación 2\\OBLIGATORIO\\CHAVARRIA_OBL\\WebRedSocial\\wwwroot\\",
+      "BasePath": "_content/WebRedSocial",
+      "RelativePath": "css/Login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Login.css"
     },
     {
       "Identity": "C:\\Users\\felic\\OneDrive\\Desktop\\Programación 2\\OBLIGATORIO\\CHAVARRIA_OBL\\WebRedSocial\\wwwroot\\css\\site.css",

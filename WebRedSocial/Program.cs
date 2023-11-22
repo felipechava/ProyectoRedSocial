@@ -36,7 +36,7 @@ namespace WebRedSocial
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}/{id?}");
 
             //Planteo que se utilice la Session
             app.UseSession();

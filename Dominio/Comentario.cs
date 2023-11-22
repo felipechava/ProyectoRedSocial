@@ -66,28 +66,6 @@ namespace Dominio
             }
         }
 
-        public bool PuedeComentarPost(Miembro unMiembro, Post unPost)
-        {
-            if (unPost.esPrivado)
-            {
-                if (this.Autor.amigos.Contains(unMiembro))  
-                {
-                    this.esPrivado = true;
-                }
-                return this.Autor.amigos.Contains(unMiembro); //Si el post es privado verifica que el miembro esté en la lista de amigos
-            }
-            return true; //Si es público cualquiera lo puede comentar
-        }
-
-        public bool PuedeVerComentario(Miembro unMiembro)
-        {
-            if (this.esPrivado)
-            {
-                return this.Autor.amigos.Contains(unMiembro); //Si el comentario es privado verifica que el miembro esté en la lista de amigos           
-            }
-            return true; //Si es público todos lo pueden ver
-        }
-
         public override string ToString()
         {
             return $"{this.Id}\t{this.Tipo}\t'{this.Titulo}'";

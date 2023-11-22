@@ -39,7 +39,6 @@ namespace Dominio
         public Post()
         {         
             this.Tipo = TipoPublicacion.POST;
-            //this.Autor = ObtenerAutor("hola");
             this.lastId = Id;
             this.esHabilitado = true;
             this.esPrivado = false;
@@ -96,32 +95,6 @@ namespace Dominio
             {
                 throw new Exception($"La imagen debe tener terminación '.jpg' o '.png'.");
             }
-        }
-
-        public bool PuedeVerPost(Miembro unMiembro)
-        {
-            if (this.esPrivado)
-            {
-                return this.Autor.amigos.Contains(unMiembro); //Si el post es privado verifica que el miembro esté en la lista de amigos           
-            }
-            else if (!this.esHabilitado)
-            {
-                throw new Exception($"No puedes ver el post porque el mismo está censurado por un administrador.");
-            }
-            return true; //Si es público todos lo pueden ver
-        }
-
-        public bool PuedeComentarPost(Miembro unMiembro)
-        {
-            if (this.esPrivado) 
-            {
-                return this.Autor.amigos.Contains(unMiembro); //Si el post es privado verifica que el miembro esté en la lista de amigos
-            }
-            else if (!this.esHabilitado)
-            {
-                throw new Exception($"No puedes ver el post porque el mismo está censurado por un administrador.");
-            }
-            return true; //Si es público cualquiera lo puede comentar
         }
 
         public override string ToString()

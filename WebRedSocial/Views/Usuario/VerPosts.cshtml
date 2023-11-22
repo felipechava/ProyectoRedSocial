@@ -21,36 +21,45 @@
             <th>Título</th>
             <th>Autor</th>
             <th>Fecha</th>
+            <th>Contenido</th>
             <th>Likes</th>
             <th>Dislikes</th>
             <th>Valor Aceptación</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Post p in Model)
+        @if ((int)ViewData["ContadorPostHabilitados"] == 0)
         {
-            <tr>
-                <th>@p.Titulo</th>
-                <td>@Html.ActionLink(p.Autor.Email, "ObtenerUsuarioPorEmail", "Usuario", new {Email = p.Autor.Email})</td>
-                <th>@p.Fecha.ToShortDateString()</th>
-                <td>@p.CalcularCantidadLikes()</td>
-                <td>@p.CalcularCantidadDislikes()</td>
-                <td>@p.CalcularVAPost()</td>
-                <td>
-                    <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
-                        <input type="hidden" name="Id" value="@p.Id" />
-                        <button type="submit" name="reaccion" value="like">LIKE</button>
-                    </form>
-                    <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
-                        <input type="hidden" name="Id" value="@p.Id" />
-                        <button type="submit" name="reaccion" value="dislike">DISLIKE</button>
-                    </form>
-                </td>                            
-                <td>
-                    <a asp-controller="Usuario" asp-action="VerComentariosPost" asp-route-id="@p.Id">Ver Comentarios</a>
-                </td>
-            </tr>
+            <h6>Hasta el momento no existe ningún post.</h6>
         }
+        else
+        {
+            @foreach (Post p in Model)
+            {
+                <tr>
+                    <th>@p.Titulo</th>
+                    <td>@p.Autor.Nombre @p.Autor.Apellido</td>
+                    <th>@p.Fecha.ToShortDateString()</th>
+                    <th>@p.Contenido</th>
+                    <td>@p.CalcularCantidadLikes()</td>
+                    <td>@p.CalcularCantidadDislikes()</td>
+                    <td>@p.CalcularVAPost()</td>
+                    <td>
+                        <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
+                            <input type="hidden" name="Id" value="@p.Id" />
+                            <button type="submit" name="reaccion" value="like">LIKE</button>
+                        </form>
+                        <form method="post" action="@Url.Action("DarLikeDislike", "Usuario")">
+                            <input type="hidden" name="Id" value="@p.Id" />
+                            <button type="submit" name="reaccion" value="dislike">DISLIKE</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-controller="Usuario" asp-action="VerComentariosPost" asp-route-id="@p.Id">Ver Comentarios</a>
+                    </td>
+                </tr>
+            }
+        }        
     </tbody>
 </table>
 

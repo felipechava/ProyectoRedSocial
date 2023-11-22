@@ -186,7 +186,7 @@ namespace Dominio
             //Invitaciones
             //Miembro1 amigo de casi todos
             Invitacion solicitudAceptada1 = new Invitacion(miembro2, miembro1, EstadoInvitacion.APROBADA);
-            Invitacion solicitudPendiente2 = new Invitacion(miembro3, miembro1, EstadoInvitacion.PENDIENTE_APROBACION);
+            Invitacion solicitudAceptada2 = new Invitacion(miembro3, miembro1, EstadoInvitacion.APROBADA);
             Invitacion solicitudAceptada3 = new Invitacion(miembro4, miembro1, EstadoInvitacion.APROBADA);
             Invitacion solicitudAceptada4 = new Invitacion(miembro5, miembro1, EstadoInvitacion.APROBADA);
             Invitacion solicitudAceptada5 = new Invitacion(miembro6, miembro1, EstadoInvitacion.APROBADA);
@@ -196,7 +196,7 @@ namespace Dominio
             Invitacion solicitudAceptada9 = new Invitacion(miembro10, miembro1, EstadoInvitacion.APROBADA);
 
             miembro1.solicitudesAprobadas.Add(solicitudAceptada1);
-            miembro1.solicitudesPendientes.Add(solicitudPendiente2);
+            miembro1.solicitudesAprobadas.Add(solicitudAceptada2);
             miembro1.solicitudesAprobadas.Add(solicitudAceptada3);
             miembro1.solicitudesAprobadas.Add(solicitudAceptada4);
             miembro1.solicitudesAprobadas.Add(solicitudAceptada5);
@@ -241,11 +241,11 @@ namespace Dominio
             miembro5.solicitudesAprobadas.Add(solicitudAceptada04);
 
             //Invitacion solicitudPendiente2 = new Invitacion(miembro5, miembro6, EstadoInvitacion.PENDIENTE_APROBACION);
-            miembro5.solicitudesPendientes.Add(solicitudPendiente2); //Pendiente con el m6
+            //miembro5.solicitudesPendientes.Add(solicitudPendiente2); //Pendiente con el m6
             //m6
             miembro6.solicitudesAprobadas.Add(solicitudAceptada5);
             miembro6.solicitudesAprobadas.Add(solicitudAceptada05);
-            miembro6.solicitudesPendientes.Add(solicitudPendiente2); //Pendiente con el m5
+            //miembro6.solicitudesPendientes.Add(solicitudPendiente2); //Pendiente con el m5
             //m7
             miembro7.solicitudesAprobadas.Add(solicitudAceptada6);
             miembro7.solicitudesAprobadas.Add(solicitudAceptada06);
@@ -310,18 +310,6 @@ namespace Dominio
             }         
         }
 
-        public Post MostrarPost(Post unPost)
-        {
-            if (!unPost.esHabilitado)   
-            {
-                throw new Exception($"No se puede mostrar este post porque está deshabilitado por un administrador.");
-            }
-            else
-            {
-                return unPost;
-            }
-        }
-
         public List<Miembro> ListarMiembrosConMasPublicaciones()
         {
             List<Miembro> elMasPublicador = new List<Miembro>();
@@ -357,21 +345,9 @@ namespace Dominio
             return false;
         }
 
-        public bool SeEncontroMiembroConPassword(string unPassword)
-        {
-            foreach (Miembro miembro in miembros)   
-            {
-                if (miembro.Password.Equals(unPassword))    
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public Miembro BuscarMiembroConEmail(string unEmail)
         {
-            Miembro miembroEncontrado = null;
+            Miembro? miembroEncontrado = null;
 
             foreach (Miembro miembro in miembros)
             {
@@ -439,12 +415,6 @@ namespace Dominio
             publicaciones.Add(unPost);           
         }
 
-        public void AltaPublicacion(Publicacion unaPublicacion)
-        {
-            unaPublicacion.ValidacionesPublicacion();
-            publicaciones.Add(unaPublicacion);
-        }
-
         public void AltaComentario(Comentario unComentario, Miembro autorComentario, Post unPost)
         {
             unComentario.ValidacionesPublicacion();
@@ -455,6 +425,7 @@ namespace Dominio
 
         public void AltaMiembro(Miembro unMiembro)
         {
+            YaExisteUsuario(unMiembro.Email);
             unMiembro.ValidacionesUsuario();
             unMiembro.Validaciones();
             usuarios.Add(unMiembro); //Se agrega a la lista 
@@ -505,21 +476,6 @@ namespace Dominio
             return retorno;
         }
 
-        public List<Miembro> ListarTodosLosMiembrosMenosA(Miembro yo)
-        {
-            List<Miembro> retorno = new List<Miembro>();
-
-            foreach (Miembro miembro in miembros)   
-            {
-                if (!miembro.Equals(yo))    
-                {
-                    retorno.Add(miembro);
-                }
-            }
-            retorno.Sort();
-            return retorno;
-        }
-
         public Usuario ObtenerUsuarioPorEmail(string unEmail)
         {
             foreach (Usuario usuario in usuarios)
@@ -566,21 +522,6 @@ namespace Dominio
                 }              
             }
             throw new Exception("Email y contraseña incorrectos.");
-        }
-
-        public Post ObtenerPostPorId(Post unPost)
-        {
-            foreach (Publicacion post in publicaciones)    
-            {
-                if (post is Post)   
-                {
-                    if (post.Id.Equals(unPost.Id))   
-                    {
-                        return (Post)post;
-                    }
-                }
-            }
-            throw new Exception($"No existe un post con ese ID.");
         }
 
         public Post ObtenerPostPorIntId(int unId)
@@ -650,6 +591,42 @@ namespace Dominio
             return posts;
         }
 
+        public Administrador ObtenerAdmPorEmailString(string unEmail)
+        {
+            foreach (Administrador adm in administradores)
+            {
+                if (adm.Email == unEmail)
+                {
+                    return adm;
+                }
+            }
+            throw new Exception($"No existe un administrador con ese e-mail."); 
+        }
+
+
+
+
+
+
+        public bool YaExisteUsuario(string unEmail)
+        {
+            bool existe = false;
+
+            foreach (Miembro miembro in miembros)
+            {
+                if (miembro.Email.Equals(unEmail))
+                {
+                    existe = true; //Existe
+                }
+            }
+
+            if (existe)
+            {
+                throw new Exception($"Ya existe un usuario con ese email");
+            }
+
+            return existe; //NO existe
+        }
 
 
 
