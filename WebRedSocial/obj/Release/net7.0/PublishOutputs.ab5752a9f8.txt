@@ -1,0 +1,9 @@
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\WebRedSocial.exe
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\appsettings.json
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\WebRedSocial.dll
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\WebRedSocial.deps.json
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\WebRedSocial.runtimeconfig.json
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\WebRedSocial.pdb
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\Dominio.dll
+C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\obj\Release\net7.0\PubTmp\Out\Dominio.pdb

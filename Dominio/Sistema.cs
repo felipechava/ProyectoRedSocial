@@ -602,12 +602,7 @@ namespace Dominio
             }
             throw new Exception($"No existe un administrador con ese e-mail."); 
         }
-
-
-
-
-
-
+ 
         public bool YaExisteUsuario(string unEmail)
         {
             bool existe = false;

@@ -1,0 +1,97 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WebRedSocial
+build_property.RootNamespace = WebRedSocial
+build_property.ProjectDir = C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\felic\OneDrive\Desktop\Programación 2\OBLIGATORIO\CHAVARRIA_OBL\WebRedSocial
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Error/Mostrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcTW9zdHJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Login/Registro.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUmVnaXN0cm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Shared/VerComentariosPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFZlckNvbWVudGFyaW9zUG9zdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/UsuarioAdm/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/UsuarioAdm/ListarPosts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbVxMaXN0YXJQb3N0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/UsuarioAdm/ListarUsuarios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbVxMaXN0YXJVc3Vhcmlvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/FilterResults.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xGaWx0ZXJSZXN1bHRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/ListarOtrosMiembros.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xMaXN0YXJPdHJvc01pZW1icm9zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/ObtenerUsuarioPorEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xPYnRlbmVyVXN1YXJpb1BvckVtYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/RealizarPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xSZWFsaXphclBvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/VerPosts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xWZXJQb3N0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Usuario/VerSolicitudesPendientes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xWZXJTb2xpY2l0dWRlc1BlbmRpZW50ZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/felic/OneDrive/Desktop/Programación 2/OBLIGATORIO/CHAVARRIA_OBL/WebRedSocial/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-a5vni6ba70
